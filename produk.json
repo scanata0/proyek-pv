@@ -1,0 +1,11 @@
+[
+   {
+      "idProduk": 1,
+      "idPenjual": 1,
+      "nama": "Tas Selempang",
+      "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum deserunt placeat quasi ad quos qui quis totam doloremque, a praesentium quia quod in reiciendis ea ipsa fugit fugiat! Asperiores, pariatur?",
+      "gambar": "https://images.tokopedia.net/img/cache/200/attachment/2018/8/9/3127195/3127195_d7c67b76-9ff4-46f9-93a3-ec4be4918439.jpg.webp",
+      "harga": 150000,
+      "stok": 55
+   }
+]

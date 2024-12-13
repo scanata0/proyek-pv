@@ -1,0 +1,13 @@
+[
+   {
+      "idTransaksi": 1,
+      "idPembeli": 2,
+      "produkDibeli": [
+         {
+            "idProduk": 1,
+            "jumlah": 1
+         }
+      ],
+      "total": 150000
+   }
+]

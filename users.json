@@ -1,0 +1,25 @@
+[
+   {
+      "id": 1,
+      "username": "pakeroyco",
+      "password": "12345abcde",
+      "nama": "Royce Keren",
+      "saldo": 200000,
+      "daftarPenjual": true,
+      "keranjang": [
+         {
+            "idProduk": 1,
+            "jumlah": 2
+         }
+      ]
+   },
+   {
+      "id": 2,
+      "username": "scanata",
+      "password": "jesisisepuh",
+      "nama": "Jessica Natalie",
+      "saldo": 500000,
+      "daftarPenjual": false,
+      "keranjang": []
+   }
+]
