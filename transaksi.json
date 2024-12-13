@@ -9,5 +9,16 @@
          }
       ],
       "total": 150000
+   },
+   {
+      "idTransaksi": 2,
+      "idPembeli": 3,
+      "produkDibeli": [
+         {
+            "idProduk": 1,
+            "jumlah": 2
+         }
+      ],
+      "total": 300000
    }
 ]
