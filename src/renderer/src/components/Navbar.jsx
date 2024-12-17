@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button, Box, TextField, IconButton } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -24,7 +25,7 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <Box sx={{ display: 'flex', gap: 2, marginLeft: 2 }}>
-          <Button color="inherit">Home</Button>
+        <NavLink to='/' style={{color: 'white'}}><Button color="inherit">Home</Button></NavLink>
           <div>
             <Button
             id="basic-button"
@@ -45,14 +46,13 @@ export default function Navbar() {
                'aria-labelledby': 'basic-button',
             }}
             >
-            <MenuItem onClick={handleClose}>Elektronik</MenuItem>
-            <MenuItem onClick={handleClose}>Fashion</MenuItem>
-            <MenuItem onClick={handleClose}>Kecantikan</MenuItem>
-            <MenuItem onClick={handleClose}>Kesehatan</MenuItem>
-            <MenuItem onClick={handleClose}>Makanan & Minuman</MenuItem>
+            <NavLink to='/home/elektronik' style={{color: 'black', textDecoration: 'none'}}><MenuItem onClick={handleClose}>Elektronik</MenuItem></NavLink>
+            <NavLink to='/home/fashion' style={{color: 'black', textDecoration: 'none'}}><MenuItem onClick={handleClose}>Fashion</MenuItem></NavLink>
+            <NavLink to='/home/kecantikan' style={{color: 'black', textDecoration: 'none'}}><MenuItem onClick={handleClose}>Kecantikan</MenuItem></NavLink>
+            <NavLink to='/home/kesehatan' style={{color: 'black', textDecoration: 'none'}}><MenuItem onClick={handleClose}>Kesehatan</MenuItem></NavLink>
+            <NavLink to='/home/makananMinuman' style={{color: 'black', textDecoration: 'none'}}><MenuItem onClick={handleClose}>Makanan & Minuman</MenuItem></NavLink>
             </Menu>
          </div>
-          <Button color="inherit">Deals</Button>
         </Box>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: 2, flexGrow: 1 }}>
@@ -67,8 +67,8 @@ export default function Navbar() {
           </IconButton>
         </Box>
         <Box sx={{ display: 'flex', gap: 2, flexGrow: 1, justifyContent: 'end' }}>
-          <Button color="inherit">Sign Up</Button>
-          <Button color="inherit">Log In</Button>
+          <NavLink to="/signup" style={{color: 'white'}}><Button color="inherit">Sign Up</Button></NavLink>
+          <NavLink to="/login" style={{color: 'white'}}><Button color="inherit">Log In</Button></NavLink>
         </Box>
       </Toolbar>
     </AppBar>

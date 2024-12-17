@@ -21,5 +21,180 @@
       "saldo": 500000,
       "daftarPenjual": false,
       "keranjang": []
+   },
+   {
+      "id": 3,
+      "username": "john_doe",
+      "password": "password123",
+      "nama": "John Doe",
+      "saldo": 150000,
+      "daftarPenjual": false,
+      "keranjang": [
+         {
+            "idProduk": 2,
+            "jumlah": 1
+         }
+      ]
+   },
+   {
+      "id": 4,
+      "username": "alice_wonder",
+      "password": "alice12345",
+      "nama": "Alice Wonderland",
+      "saldo": 300000,
+      "daftarPenjual": true,
+      "keranjang": []
+   },
+   {
+      "id": 5,
+      "username": "bob_marvel",
+      "password": "marvel123",
+      "nama": "Bob Marvel",
+      "saldo": 100000,
+      "daftarPenjual": false,
+      "keranjang": [
+         {
+            "idProduk": 3,
+            "jumlah": 3
+         }
+      ]
+   },
+   {
+      "id": 6,
+      "username": "chris_black",
+      "password": "chrispass",
+      "nama": "Chris Black",
+      "saldo": 400000,
+      "daftarPenjual": true,
+      "keranjang": [
+         {
+            "idProduk": 4,
+            "jumlah": 2
+         }
+      ]
+   },
+   {
+      "id": 7,
+      "username": "diana_queen",
+      "password": "queenbee",
+      "nama": "Diana Queen",
+      "saldo": 250000,
+      "daftarPenjual": false,
+      "keranjang": []
+   },
+   {
+      "id": 8,
+      "username": "ethan_hunt",
+      "password": "impossible",
+      "nama": "Ethan Hunt",
+      "saldo": 500000,
+      "daftarPenjual": false,
+      "keranjang": [
+         {
+            "idProduk": 5,
+            "jumlah": 1
+         }
+      ]
+   },
+   {
+      "id": 9,
+      "username": "fiona_star",
+      "password": "shrek123",
+      "nama": "Fiona Star",
+      "saldo": 600000,
+      "daftarPenjual": true,
+      "keranjang": []
+   },
+   {
+      "id": 10,
+      "username": "george_cool",
+      "password": "cool12345",
+      "nama": "George Cool",
+      "saldo": 350000,
+      "daftarPenjual": false,
+      "keranjang": []
+   },
+   {
+      "id": 11,
+      "username": "hanna_moon",
+      "password": "moonlight",
+      "nama": "Hanna Moon",
+      "saldo": 200000,
+      "daftarPenjual": false,
+      "keranjang": [
+         {
+            "idProduk": 6,
+            "jumlah": 2
+         }
+      ]
+   },
+   {
+      "id": 12,
+      "username": "ivan_dragon",
+      "password": "dragon123",
+      "nama": "Ivan Dragon",
+      "saldo": 450000,
+      "daftarPenjual": true,
+      "keranjang": []
+   },
+   {
+      "id": 13,
+      "username": "jane_sky",
+      "password": "skyhigh",
+      "nama": "Jane Sky",
+      "saldo": 300000,
+      "daftarPenjual": false,
+      "keranjang": [
+         {
+            "idProduk": 7,
+            "jumlah": 4
+         }
+      ]
+   },
+   {
+      "id": 14,
+      "username": "kevin_sun",
+      "password": "sunshine",
+      "nama": "Kevin Sun",
+      "saldo": 550000,
+      "daftarPenjual": false,
+      "keranjang": []
+   },
+   {
+      "id": 15,
+      "username": "lara_craft",
+      "password": "adventure",
+      "nama": "Lara Craft",
+      "saldo": 400000,
+      "daftarPenjual": true,
+      "keranjang": [
+         {
+            "idProduk": 8,
+            "jumlah": 1
+         }
+      ]
+   },
+   {
+      "id": 16,
+      "username": "mike_stone",
+      "password": "stoneman",
+      "nama": "Mike Stone",
+      "saldo": 300000,
+      "daftarPenjual": false,
+      "keranjang": [
+         {
+            "idProduk": 9,
+            "jumlah": 3
+         }
+      ]
+   },
+   {
+      "id": 17,
+      "username": "nancy_white",
+      "password": "whitequeen",
+      "nama": "Nancy White",
+      "saldo": 150000,
+      "daftarPenjual": false,
+      "keranjang": []
    }
 ]
