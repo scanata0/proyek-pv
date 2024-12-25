@@ -3,7 +3,7 @@ import { Box, Typography, Link, Container } from '@mui/material';
 
 export default function Footer() {
    return(
-      <Box position='fixed' sx={{ backgroundColor: '#f5f5f5', padding: 2, position: 'absolute', bottom: '0', width: '100%'}}>
+      <Box position='relative' sx={{ backgroundColor: '#f5f5f5', padding: 2, bottom: '0', width: '100%'}}>
       <Container>
         <Typography variant="body2" color="textSecondary">
           &copy; 2024 Tokotokoan. All Rights Reserved.

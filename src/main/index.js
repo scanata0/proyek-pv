@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import fs from 'fs'
 
 function createWindow() {
   // Create the browser window.
@@ -52,6 +53,30 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  ipcMain.on('saveProducts', function(event, products) {
+      fs.writeFileSync('./produk.json', JSON.stringify(products))
+  })
+
+  ipcMain.handle('loadProducts', function() {
+   return JSON.parse(fs.readFileSync('./produk.json'))
+  })
+
+  ipcMain.on('saveUsers', function(event, users) {
+      fs.writeFileSync('./users.json', JSON.stringify(users))
+   })
+
+   ipcMain.handle('loadUsers', function() {
+   return JSON.parse(fs.readFileSync('./users.json'))
+   })
+
+   ipcMain.on('saveTransactions', function(event, transactions) {
+      fs.writeFileSync('./transaksi.json', JSON.stringify(transactions))
+  })
+
+  ipcMain.handle('loadTransactions', function() {
+   return JSON.parse(fs.readFileSync('./transaksi.json'))
+  })
 
   createWindow()
 

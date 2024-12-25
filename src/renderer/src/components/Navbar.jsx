@@ -46,6 +46,7 @@ export default function Navbar() {
                'aria-labelledby': 'basic-button',
             }}
             >
+            <NavLink to='/home/rumahTangga' style={{color: 'black', textDecoration: 'none'}}><MenuItem onClick={handleClose}>Rumah Tangga</MenuItem></NavLink>
             <NavLink to='/home/elektronik' style={{color: 'black', textDecoration: 'none'}}><MenuItem onClick={handleClose}>Elektronik</MenuItem></NavLink>
             <NavLink to='/home/fashion' style={{color: 'black', textDecoration: 'none'}}><MenuItem onClick={handleClose}>Fashion</MenuItem></NavLink>
             <NavLink to='/home/kecantikan' style={{color: 'black', textDecoration: 'none'}}><MenuItem onClick={handleClose}>Kecantikan</MenuItem></NavLink>

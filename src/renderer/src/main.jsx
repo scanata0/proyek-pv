@@ -6,7 +6,7 @@ import App from './App'
 import Home from './components/Home'
 import Login from './components/Login'
 import Signup from './components/Signup'
-import {Elektronik, Default, Fashion, Kecantikan, Kesehatan, MakananMinuman} from './components/Categories'
+import {Elektronik, Default, Fashion, Kecantikan, Kesehatan, MakananMinuman, RumahTangga} from './components/Categories'
 import {
    createBrowserRouter,
    Navigate,
@@ -50,6 +50,10 @@ const router = createBrowserRouter([
                {
                   path: "makananMinuman",
                   element: <MakananMinuman />
+               },
+               {
+                  path: "rumahTangga",
+                  element: <RumahTangga />
                }
             ]
          }
