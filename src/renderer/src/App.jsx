@@ -18,13 +18,6 @@ function App() {
 
    const [state, dispatch] = useReducer(dataReducer, initialData)
 
-   const addProduct = (product) => {
-      dispatch({
-         type: ADD_PRODUCT,
-         payload: product
-      })
-   }
-
    useEffect(() => {
       window.api.loadProducts().then((data) => {
          dispatch({
@@ -45,6 +38,13 @@ function App() {
          })
       })
    }, [dispatch])
+
+   const addProduct = (product) => {
+      dispatch({
+         type: ADD_PRODUCT,
+         payload: product
+      })
+   }
 
    // useEffect(() => {
    //    setProducts()

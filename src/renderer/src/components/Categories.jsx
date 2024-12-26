@@ -2,10 +2,10 @@ import React, { useState, useContext } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Container, Paper, Button, Grid2, Card, CardMedia, CardContent, Typography, CardActions } from '@mui/material';
 
-import ProductsContext from '../context/DataContext';
+import DataContext from '../context/DataContext';
 
 export function RumahTangga() {
-   const context = useContext(ProductsContext)
+   const context = useContext(DataContext)
    const filteredProducts = (context.products).filter((p) => p.kategori === 'Rumah Tangga')
 
   return (
@@ -44,7 +44,7 @@ export function RumahTangga() {
 }
 
 export function Elektronik() {
-   const context = useContext(ProductsContext)
+   const context = useContext(DataContext)
    const filteredProducts = (context.products).filter((p) => p.kategori === 'Elektronik')
 
   return (
@@ -83,7 +83,7 @@ export function Elektronik() {
 }
 
 export function Fashion() {
-   const context = useContext(ProductsContext)
+   const context = useContext(DataContext)
    const filteredProducts = (context.products).filter((p) => p.kategori === 'Fashion')
 
   return (
@@ -122,7 +122,7 @@ export function Fashion() {
 }
 
 export function Kecantikan() {
-   const context = useContext(ProductsContext)
+   const context = useContext(DataContext)
    const filteredProducts = (context.products).filter((p) => p.kategori === 'Kecantikan')
 
    return (
@@ -161,7 +161,7 @@ export function Kecantikan() {
  }
 
  export function Kesehatan() {
-   const context = useContext(ProductsContext)
+   const context = useContext(DataContext)
    const filteredProducts = (context.products).filter((p) => p.kategori === 'Kesehatan')
 
    return (
@@ -200,7 +200,7 @@ export function Kecantikan() {
  }
 
  export function MakananMinuman() {
-   const context = useContext(ProductsContext)
+   const context = useContext(DataContext)
    const filteredProducts = (context.products).filter((p) => p.kategori === 'Makanan & Minuman')
 
    return (
@@ -239,7 +239,7 @@ export function Kecantikan() {
  }
 
 export function Default() {
-   const context = useContext(ProductsContext)
+   const context = useContext(DataContext)
 
    return (
      <>
