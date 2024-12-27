@@ -4,8 +4,10 @@ const DataContext = createContext({
    products: [],
    users: [],
    transactions: [],
+   userActive: {},
    addProduct : (product) => {},
-   setProducts: (products) => {}
+   setProducts: (products) => {},
+   setUserActive: (user) => {}
 })
 
 export default DataContext

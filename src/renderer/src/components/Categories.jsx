@@ -13,8 +13,8 @@ export function RumahTangga() {
       <Container sx={{minHeight: '370px'}}>
          <h1>Produk Rumah Tangga</h1>
          <Grid2 container spacing={3} sx={{marginTop: '30px'}}>
-            {filteredProducts.map((p) => (
-               <Grid2 size={3}>
+            {filteredProducts.map((p, index) => (
+               <Grid2 key={index} size={3}>
                   <Card sx={{ maxWidth: 375 }}>
                      <CardMedia
                      component="img"
@@ -52,8 +52,8 @@ export function Elektronik() {
       <Container sx={{minHeight: '370px'}}>
          <h1>Produk Elektronik</h1>
          <Grid2 container spacing={3} sx={{marginTop: '30px'}}>
-            {filteredProducts.map((p) => (
-               <Grid2 size={3}>
+            {filteredProducts.map((p, index) => (
+               <Grid2 key={index} size={3}>
                   <Card sx={{ maxWidth: 375 }}>
                      <CardMedia
                      component="img"
@@ -91,8 +91,8 @@ export function Fashion() {
       <Container sx={{minHeight: '370px'}}>
          <h1>Produk Fashion</h1>
          <Grid2 container spacing={3} sx={{marginTop: '30px'}}>
-            {filteredProducts.map((p) => (
-               <Grid2 size={3}>
+            {filteredProducts.map((p, index) => (
+               <Grid2 key={index} size={3}>
                   <Card sx={{ maxWidth: 375 }}>
                      <CardMedia
                      component="img"
@@ -130,8 +130,8 @@ export function Kecantikan() {
        <Container sx={{minHeight: '370px'}}>
           <h1>Produk Kecantikan</h1>
           <Grid2 container spacing={3} sx={{marginTop: '30px'}}>
-            {filteredProducts.map((p) => (
-               <Grid2 size={3}>
+            {filteredProducts.map((p, index) => (
+               <Grid2 key={index} size={3}>
                   <Card sx={{ maxWidth: 375 }}>
                      <CardMedia
                      component="img"
@@ -169,8 +169,8 @@ export function Kecantikan() {
        <Container sx={{minHeight: '370px'}}>
           <h1>Produk Kesehatan</h1>
           <Grid2 container spacing={3} sx={{marginTop: '30px'}}>
-            {filteredProducts.map((p) => (
-               <Grid2 size={3}>
+            {filteredProducts.map((p, index) => (
+               <Grid2 key={index} size={3}>
                   <Card sx={{ maxWidth: 375 }}>
                      <CardMedia
                      component="img"
@@ -208,8 +208,8 @@ export function Kecantikan() {
        <Container sx={{minHeight: '370px'}}>
           <h1>Produk Makanan & Minuman</h1>
           <Grid2 container spacing={3} sx={{marginTop: '30px'}}>
-            {filteredProducts.map((p) => (
-               <Grid2 size={3}>
+            {filteredProducts.map((p, index) => (
+               <Grid2 key={index} size={3}>
                   <Card sx={{ maxWidth: 375 }}>
                      <CardMedia
                      component="img"
@@ -240,13 +240,22 @@ export function Kecantikan() {
 
 export function Default() {
    const context = useContext(DataContext)
+   const navigate = useNavigate()
+
+   function beliSekarang(produk) {
+      if(context.userActive) {
+         navigate("/buynow", {state: produk})
+      } else {
+         alert("Signup/Login terlebih dahulu!")
+      }
+   }
 
    return (
      <>
        <Container sx={{minHeight: '370px'}}>
          <Grid2 container spacing={3} sx={{marginTop: '30px'}}>
-            {context.products.map((p) => (
-               <Grid2 size={3}>
+            {context.products.map((p, index) => (
+               <Grid2 key={index} size={3}>
                   <Card sx={{ maxWidth: 375 }}>
                      <CardMedia
                      component="img"
@@ -264,7 +273,7 @@ export function Default() {
                      </CardContent>
                      <CardActions>
                      <Button variant='contained' sx={{backgroundColor: '#00b140'}}>Masukkan Keranjang</Button>
-                     <Button variant='contained' sx={{backgroundColor: '#00b140'}}>Beli Sekarang</Button>
+                     <Button variant='contained' sx={{backgroundColor: '#00b140'}} onClick={() => beliSekarang(p)}>Beli Sekarang</Button>
                      </CardActions>
                   </Card>
                </Grid2>

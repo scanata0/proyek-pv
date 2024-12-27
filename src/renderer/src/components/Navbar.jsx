@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Button, Box, TextField, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, TextField, IconButton, Avatar } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
+
+import DataContext from '../context/DataContext';
 
 export default function Navbar() {
    const [anchorEl, setAnchorEl] = React.useState(null);
@@ -15,6 +17,8 @@ export default function Navbar() {
       setAnchorEl(null);
    };
 
+   const context = useContext(DataContext)
+
    return(
       <AppBar position="fixed" sx={{ backgroundColor: '#00b140' }}>
       <Toolbar>
@@ -23,9 +27,8 @@ export default function Navbar() {
           Tokotokoan
         </Typography>
 
-        {/* Navigation Links */}
         <Box sx={{ display: 'flex', gap: 2, marginLeft: 2 }}>
-        <NavLink to='/' style={{color: 'white'}}><Button color="inherit">Home</Button></NavLink>
+        <NavLink to='/home' style={{color: 'white'}}><Button color="inherit">Home</Button></NavLink>
           <div>
             <Button
             id="basic-button"
@@ -67,10 +70,14 @@ export default function Navbar() {
             <SearchIcon />
           </IconButton>
         </Box>
-        <Box sx={{ display: 'flex', gap: 2, flexGrow: 1, justifyContent: 'end' }}>
+        {context.userActive ? (
+         <Link to="/profile"><Avatar /></Link>
+        ) : (
+         <Box sx={{ display: 'flex', gap: 2, flexGrow: 1, justifyContent: 'end' }}>
           <NavLink to="/signup" style={{color: 'white'}}><Button color="inherit">Sign Up</Button></NavLink>
           <NavLink to="/login" style={{color: 'white'}}><Button color="inherit">Log In</Button></NavLink>
         </Box>
+        )}
       </Toolbar>
     </AppBar>
    )

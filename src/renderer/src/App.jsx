@@ -1,15 +1,18 @@
 // import Versions from './components/Versions'
 // import electronLogo from './assets/electron.svg'
 import React, { useEffect, useState, useReducer } from 'react';
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import DataContext from './context/DataContext';
 import dataReducer from './context/dataReducer';
-import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS } from './context/types';
+import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS, SET_USERACTIVE } from './context/types';
 
 function App() {
+   const location = useLocation()
+   const [user, setUser] = useState(location.state)
+
    const initialData = {
       products: [],
       users: [],
@@ -36,6 +39,10 @@ function App() {
             type: SET_TRANSACTIONS,
             payload: data
          })
+      })
+      dispatch({
+         type: SET_USERACTIVE,
+         payload: user
       })
    }, [dispatch])
 
@@ -75,6 +82,7 @@ function App() {
          products: state.products,
          users: state.users,
          transactions: state.transactions,
+         userActive: state.userActive,
          addProduct
       }}>
       <Navbar />

@@ -6,6 +6,8 @@ import App from './App'
 import Home from './components/Home'
 import Login from './components/Login'
 import Signup from './components/Signup'
+import Profile from './components/Profile'
+import BuyNow from './components/BuyNow'
 import {Elektronik, Default, Fashion, Kecantikan, Kesehatan, MakananMinuman, RumahTangga} from './components/Categories'
 import {
    createBrowserRouter,
@@ -54,8 +56,20 @@ const router = createBrowserRouter([
                {
                   path: "rumahTangga",
                   element: <RumahTangga />
+               },
+               {
+                  index: true,
+                  element: <Default />
                }
             ]
+         },
+         {
+            path: '/profile',
+            element: <Profile />
+         },
+         {
+            path: '/buynow',
+            element: <BuyNow />
          }
       ]
    },

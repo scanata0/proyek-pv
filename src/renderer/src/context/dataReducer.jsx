@@ -1,4 +1,4 @@
-import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS, ADD_USER } from "./types";
+import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS, ADD_USER, SET_USERACTIVE } from "./types";
 
 function addProduct(product, state) {
    const newProducts = [...state.products, product]
@@ -37,6 +37,13 @@ function setTransactions(loadedTransactions, state) {
    }
 }
 
+function setUserActive(user, state) {
+   return{
+      ...state,
+      userActive: user
+   }
+}
+
 export default (state, action) => {
    switch(action.type){
       case ADD_PRODUCT:
@@ -49,6 +56,8 @@ export default (state, action) => {
          return setUsers(action.payload, state)
       case SET_TRANSACTIONS:
          return setTransactions(action.payload, state)
+      case SET_USERACTIVE:
+         return setUserActive(action.payload, state)
       default:
          return state;
    }

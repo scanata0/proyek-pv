@@ -4,7 +4,7 @@ import { Container, Paper, Button, Box, Typography, TextField } from '@mui/mater
 
 import DataContext from '../context/DataContext';
 import dataReducer from '../context/dataReducer';
-import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS } from '../context/types';
+import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS, SET_USERACTIVE } from '../context/types';
 
 function Login() {
    const [inpEmail, setInpEmail] = useState('')
@@ -44,10 +44,11 @@ function Login() {
 
    function handleSubmit(e) {
       e.preventDefault();
+      setErrorMsg('')
       for (let i = 0; i < (state.users).length; i++) {
          
          if(inpEmail === (state.users)[i].email && inpPass === (state.users)[i].password) {
-            navigate("/")
+            navigate("/home", {state: (state.users)[i]})
             return
          }
       }
@@ -57,9 +58,6 @@ function Login() {
 
   return (
     <>
-    {state.users.map(u => (
-      <div>{u.nama}</div>
-    ))}
          {/* <NavLink to='/signup'>Signup</NavLink>
          <NavLink to='/'>Home</NavLink> */}
          <Container component="main" maxWidth="xs">
