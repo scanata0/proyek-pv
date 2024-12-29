@@ -1,8 +1,20 @@
 import React, { useState, useContext } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Container, Paper, Button, Grid2, Card, CardMedia, CardContent, Typography, CardActions } from '@mui/material';
+import { Container, Paper, Button, Grid2, Card, CardMedia, CardContent, Typography, CardActions, Modal, Box } from '@mui/material';
 
 import DataContext from '../context/DataContext';
+
+const styleModal = {
+   position: 'absolute',
+   top: '50%',
+   left: '50%',
+   transform: 'translate(-50%, -50%)',
+   width: 400,
+   bgcolor: 'background.paper',
+   border: '2px solid #000',
+   boxShadow: 24,
+   p: 4,
+ };
 
 export function RumahTangga() {
    const context = useContext(DataContext)
@@ -242,11 +254,15 @@ export function Default() {
    const context = useContext(DataContext)
    const navigate = useNavigate()
 
+   const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
    function beliSekarang(produk) {
       if(context.userActive) {
          navigate("/buynow", {state: produk})
       } else {
-         alert("Signup/Login terlebih dahulu!")
+         handleOpen()
       }
    }
 
@@ -279,6 +295,25 @@ export function Default() {
                </Grid2>
             ))}
          </Grid2>
+
+         <div>
+      {/* <Button onClick={handleOpen}>Open modal</Button> */}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={styleModal}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Peringatan
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Silakan login / signup terlebih dahulu untuk melanjutkan pembelian
+          </Typography>
+        </Box>
+      </Modal>
+    </div>
       </Container>
      </>
    )

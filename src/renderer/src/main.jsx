@@ -8,6 +8,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Profile from './components/Profile'
 import BuyNow from './components/BuyNow'
+import BuySuccess from './components/BuySuccess'
 import {Elektronik, Default, Fashion, Kecantikan, Kesehatan, MakananMinuman, RumahTangga} from './components/Categories'
 import {
    createBrowserRouter,
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
          {
             path: '/buynow',
             element: <BuyNow />
+         },
+         {
+            path: '/buysuccess',
+            element: <BuySuccess />
          }
       ]
    },
