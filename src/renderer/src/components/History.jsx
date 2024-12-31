@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Container, Paper, Button, Box, Typography, TextField, Grid2, Card, Avatar, CardContent, Divider, Stack, CardMedia, CardActions, Modal } from '@mui/material';
+import { Container, Paper, Button, Box, Typography, TextField, Grid2, Card, Avatar, CardContent, Divider, Stack, CardMedia, CardActions, Modal, ListItem, List } from '@mui/material';
 
 import DataContext from '../context/DataContext';
 
@@ -10,14 +10,44 @@ export default function History() {
 
    return (
       <>
-         <Container sx={{minHeight: '680px', marginTop: '100px'}}>
-            <Typography variant='h5'>Riwayat Transaksi Anda</Typography>
-            <Box>
+         <Container sx={{minHeight: '700px'}}>
+            <Box sx={{ padding: 3}}>
+               <Typography variant="h4" gutterBottom>
+               Riwayat Transaksi Anda
+               </Typography>
+               <Box>
                {context.transactions.map((t, index) => {
                   if(t.idPembeli === user.id) {
-                     return <div key={index}>{t.idTransaksi} - {t.idPembeli}</div>
+                     return (<Box key={index} sx={{marginBottom: 2}}>
+                        <Card variant="outlined">
+                        <CardContent>
+                           <Typography variant="h6" component="div">
+                              Transaksi #{t.idTransaksi}
+                           </Typography>
+                           <Typography variant="body1" component="div">
+                              Detail Produk
+                           </Typography>
+                           {t.produkDibeli.map((p, index) => (
+                              <Typography variant="body2" component="div" sx={{paddingX: 3}}>
+                                 {context.products.map(a => {
+                                    if(a.idProduk === p.idProduk) {
+                                       return <div>{a.nama} (x{p.jumlah})</div>
+                                    }
+                                 })}
+                              </Typography>
+                           ))}
+                           <Typography variant="body1" sx={{ marginTop: 1 }}>
+                              Total: Rp {(t.total).toLocaleString('ID-id')}
+                           </Typography>
+                           {/* <Typography variant="body2" color="text.secondary">
+                              {transaction.items} item{transaction.items > 1 ? 's' : ''}
+                           </Typography> */}
+                        </CardContent>
+                        </Card>
+                     </Box>)
                   }
                })}
+               </Box>
             </Box>
          </Container>
       </>

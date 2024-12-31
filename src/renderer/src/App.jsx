@@ -7,10 +7,10 @@ import Footer from './components/Footer';
 
 import DataContext from './context/DataContext';
 import dataReducer from './context/dataReducer';
-import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS, SET_USERACTIVE } from './context/types';
+import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS, SET_USERACTIVE, EDIT_PRODUCT } from './context/types';
 
 function App() {
-   const location = useLocation()
+   const location = useLocation()   
    const [user, setUser] = useState(location.state)
 
    const initialData = {
@@ -52,6 +52,12 @@ function App() {
          payload: product
       })
    }
+   const editProduct = (product) => {
+      dispatch({
+         type: EDIT_PRODUCT,
+         payload: product
+      })
+   }
 
    // useEffect(() => {
    //    setProducts()
@@ -83,7 +89,8 @@ function App() {
          users: state.users,
          transactions: state.transactions,
          userActive: state.userActive,
-         addProduct
+         addProduct,
+         editProduct
       }}>
       <Navbar />
       <div style={{marginTop: '80px'}}>

@@ -16,9 +16,6 @@ const styleModal = {
  };
 
 export default function Profile() {
-   // const location = useLocation()
-   // const [user, setUser] = useState(location.state)
-
    const context = useContext(DataContext)
    const [products, setProducts] = useState(context.products)
    const user = context.userActive
@@ -34,7 +31,7 @@ export default function Profile() {
    }
 
    function handleDelete(idx) {
-      const newProducts = products.filter((p, index) => p.idProduk !== idx)
+      const newProducts = products.filter((p) => p.idProduk !== idx)
       setProducts(newProducts)
       window.api.saveProducts(newProducts)
       handleClose()
@@ -42,6 +39,7 @@ export default function Profile() {
    
    return (
       <>
+      {console.log(products)}
          <Container sx={{minHeight: '700px'}}>
          {/* <h1>{user.nama}</h1> */}
          <Container maxWidth="lg" sx={{ paddingTop: 3 }}>

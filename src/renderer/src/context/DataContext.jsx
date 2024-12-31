@@ -7,6 +7,9 @@ const DataContext = createContext({
    userActive: {},
    addProduct : (product) => {},
    setProducts: (products) => {},
+   editProduct: (product) => {},
+   setUsers: (users) => {},
+   setTransactions: (transactions) => {},
    setUserActive: (user) => {}
 })
 

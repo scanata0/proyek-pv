@@ -71,7 +71,7 @@ export default function Navbar() {
           </IconButton>
         </Box>
         {context.userActive ? (
-         <Link to="/profile"><Avatar /></Link>
+         <NavLink to="/profile"><Avatar /></NavLink>
         ) : (
          <Box sx={{ display: 'flex', gap: 2, flexGrow: 1, justifyContent: 'end' }}>
           <NavLink to="/signup" style={{color: 'white'}}><Button color="inherit">Sign Up</Button></NavLink>
