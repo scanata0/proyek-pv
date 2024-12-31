@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Container, Paper, Button, Box, Typography, TextField, Grid2, Card, Avatar, CardContent, Divider, Stack, CardMedia, Modal } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -20,6 +20,7 @@ const styleModal = {
 
 export default function BuyNow() {
    const [jumlah, setJumlah] = useState(1)
+   // const [users, setUsers] = useState([])
 
    const context = useContext(DataContext)
    const user = context.userActive
@@ -33,8 +34,37 @@ export default function BuyNow() {
 
   const navigate = useNavigate()
 
+//   useEffect(() => {
+//    window.api.loadUsers().then((data) => {
+//       setUsers(data)
+//    })
+//   })
+
   function handleBeli() {
    const arrBeli = [{produk, jumlah}]
+   const sisaSaldo = user.saldo - (produk.harga* jumlah)
+   user.saldo = sisaSaldo
+   const newUsers = (context.users).map((u) => {
+      if(u.index === user.index) {
+         return {...u, saldo: sisaSaldo}
+      } else {
+         return u
+      }
+   })
+   const newTransaction = {
+      idTransaksi: context.transactions.length + 1,
+      idPembeli: user.id,
+      produkDibeli: [
+         {
+            idProduk: produk.id,
+            jumlah: jumlah
+         }
+      ],
+      total: (produk.harga* jumlah)
+   }
+   const newTransactions = [...context.transactions, newTransaction]
+   window.api.saveUsers(newUsers)
+   window.api.saveTransactions(newTransactions)
    navigate('/buysuccess', {state: arrBeli})
   }
 
@@ -117,14 +147,25 @@ export default function BuyNow() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={styleModal}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Anda yakin ingin melanjutkan pembelian?
-          </Typography>
-          <Button variant='contained' id='modal-modal-description' sx={{ mt: 2, backgroundColor: '#00b140' }} onClick={handleBeli}>
-            Konfirmasi
-          </Button>
-        </Box>
+         {
+            user.saldo < (produk.harga)* jumlah ? (
+               <Box sx={styleModal}>
+               <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Saldo Anda tidak cukup
+               </Typography>
+               </Box>
+            ) : (
+               <Box sx={styleModal}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2">
+                     Anda yakin ingin melanjutkan pembelian?
+                  </Typography>
+                  <Button variant='contained' id='modal-modal-description' sx={{ mt: 2, backgroundColor: '#00b140' }} onClick={handleBeli}>
+                     Konfirmasi
+                  </Button>
+               </Box>
+            )
+         }
+        
       </Modal>
     </div>
          </Container>

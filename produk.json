@@ -11,7 +11,7 @@
    },
    {
       "idProduk": 2,
-      "idPenjual": 3,
+      "idPenjual": 4,
       "nama": "Jam Tangan Sport",
       "kategori": "Fashion",
       "deskripsi": "Jam tangan sporty dengan fitur waterproof, cocok untuk aktivitas outdoor.",
@@ -21,7 +21,7 @@
    },
    {
       "idProduk": 3,
-      "idPenjual": 2,
+      "idPenjual": 4,
       "nama": "Sepatu Sneakers",
       "kategori": "Fashion",
       "deskripsi": "Sepatu sneakers nyaman dan stylish, tersedia dalam berbagai ukuran.",
@@ -41,7 +41,7 @@
    },
    {
       "idProduk": 5,
-      "idPenjual": 5,
+      "idPenjual": 6,
       "nama": "Topi Baseball",
       "kategori": "Fashion",
       "deskripsi": "Topi baseball berkualitas tinggi, tersedia dalam berbagai warna.",
@@ -61,7 +61,7 @@
    },
    {
       "idProduk": 7,
-      "idPenjual": 7,
+      "idPenjual": 1,
       "nama": "Tas Punggung",
       "kategori": "Fashion",
       "deskripsi": "Tas punggung serbaguna, cocok untuk sekolah, kerja, atau traveling.",
@@ -71,7 +71,7 @@
    },
    {
       "idProduk": 8,
-      "idPenjual": 8,
+      "idPenjual": 6,
       "nama": "Mouse Gaming",
       "kategori": "Elektronik",
       "deskripsi": "Mouse gaming dengan sensitivitas tinggi dan desain ergonomis.",
@@ -81,7 +81,7 @@
    },
    {
       "idProduk": 9,
-      "idPenjual": 9,
+      "idPenjual": 1,
       "nama": "Kaos Polos",
       "kategori": "Fashion",
       "deskripsi": "Kaos polos berkualitas premium, nyaman dipakai sehari-hari.",
@@ -91,7 +91,7 @@
    },
    {
       "idProduk": 10,
-      "idPenjual": 10,
+      "idPenjual": 6,
       "nama": "Power Bank",
       "kategori": "Elektronik",
       "deskripsi": "Power bank kapasitas besar untuk mengisi daya gadget Anda.",
@@ -101,7 +101,7 @@
    },
    {
       "idProduk": 11,
-      "idPenjual": 11,
+      "idPenjual": 9,
       "nama": "Celana Jeans",
       "kategori": "Fashion",
       "deskripsi": "Celana jeans dengan potongan slim fit, cocok untuk gaya kasual.",
@@ -121,7 +121,7 @@
    },
    {
       "idProduk": 13,
-      "idPenjual": 13,
+      "idPenjual": 12,
       "nama": "Kacamata Hitam",
       "kategori": "Fashion",
       "deskripsi": "Kacamata hitam trendi dengan perlindungan UV.",
@@ -131,7 +131,7 @@
    },
    {
       "idProduk": 14,
-      "idPenjual": 14,
+      "idPenjual": 12,
       "nama": "Gelang Aksesoris",
       "kategori": "Fashion",
       "deskripsi": "Gelang cantik yang cocok untuk melengkapi gaya Anda.",

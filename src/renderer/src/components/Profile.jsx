@@ -1,15 +1,44 @@
 import React, { useContext, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Container, Paper, Button, Box, Typography, TextField, Grid2, Card, Avatar, CardContent, Divider, Stack } from '@mui/material';
+import { Container, Paper, Button, Box, Typography, TextField, Grid2, Card, Avatar, CardContent, Divider, Stack, CardMedia, CardActions, Modal } from '@mui/material';
 
 import DataContext from '../context/DataContext';
+
+const styleModal = {
+   position: 'absolute',
+   top: '50%',
+   left: '50%',
+   transform: 'translate(-50%, -50%)',
+   width: 400,
+   bgcolor: 'background.paper',
+   boxShadow: 24,
+   p: 4,
+ };
 
 export default function Profile() {
    // const location = useLocation()
    // const [user, setUser] = useState(location.state)
 
    const context = useContext(DataContext)
+   const [products, setProducts] = useState(context.products)
    const user = context.userActive
+
+   const [open, setOpen] = useState(-1);
+      const handleOpen = (idx) => setOpen(idx);
+      const handleClose = () => setOpen(-1);
+
+   const navigate = useNavigate()
+
+   function editProduct(produk) {
+      navigate('/updateproduct', {state: produk})
+   }
+
+   function handleDelete(idx) {
+      const newProducts = products.filter((p, index) => p.idProduk !== idx)
+      setProducts(newProducts)
+      window.api.saveProducts(newProducts)
+      handleClose()
+   }
    
    return (
       <>
@@ -51,9 +80,12 @@ export default function Profile() {
                   <Typography color="textSecondary">{user.username}</Typography>
                   </Paper>
                   <Paper>
-               <Typography variant="body1">Email</Typography>
-               <Typography color="textSecondary">{user.email}</Typography>
-               </Paper>
+                  <Typography variant="body1">Email</Typography>
+                  <Typography color="textSecondary">{user.email}</Typography>
+                  </Paper>
+                     <NavLink to='/history'><Button variant="contained" sx={{ backgroundColor: '#00b140' }}>
+                  Lihat Riwayat Transaksi
+               </Button></NavLink>
                </Stack>
                
                </CardContent>
@@ -63,7 +95,45 @@ export default function Profile() {
 
          <Box>
             {user.daftarPenjual ? (
-               <h1>List Produk Anda</h1>
+               <Box sx={{marginTop: '50px'}}>
+                  <Box sx={{display: 'flex', gap: '25px'}}>
+                     <Typography variant='h5'>List Produk Anda</Typography>
+                     <NavLink to='/updateproduct'><Button variant='contained' sx={{backgroundColor: '#00b140'}}>Tambah Produk Baru</Button></NavLink>
+                  </Box>
+                  <Grid2 container spacing={3} sx={{marginTop: '30px'}}>
+                  {products.map((p, index) => {
+                     if(p.idPenjual === user.id) {
+                        return (
+                           <Grid2 key={index} size={3}>
+                           <Card sx={{ maxWidth: 375 }}>
+                              <CardMedia
+                              component="img"
+                              alt="green iguana"
+                              height="140"
+                              image={p.gambar}
+                              />
+                              <CardContent sx={{height: '120px'}}>
+                              <Typography gutterBottom variant="h5" component="div">
+                                 {p.nama}
+                              </Typography>
+                              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                 Rp {(p.harga).toLocaleString('ID-id')}
+                              </Typography>
+                              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                 {p.deskripsi}
+                              </Typography>
+                              </CardContent>
+                              <CardActions>
+                                 <Button variant='contained' sx={{backgroundColor: '#00b140'}} onClick={() => editProduct(p)}>Edit</Button>
+                                 <Button variant='contained' sx={{backgroundColor: 'red'}} onClick={() => handleOpen(index)}>Delete</Button>
+                                 </CardActions>
+                           </Card>
+                        </Grid2>
+                        )
+                     }
+                  })}
+                  </Grid2>
+               </Box>
             ) : (
                <Button variant="contained" sx={{ marginTop: 2, backgroundColor: '#00b140' }}>
                 Daftar Penjual
@@ -71,6 +141,26 @@ export default function Profile() {
             )}
          </Box>
       </Container>
+      {open > -1 && 
+         <div>
+            {/* <Button onClick={handleOpen}>Open modal</Button> */}
+            <Modal
+            open={true}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+               <Box sx={styleModal}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2">
+                     Anda yakin ingin menghapus produk {products[open].nama}?
+                  </Typography>
+                  <Button variant='contained' id='modal-modal-description' sx={{ mt: 2, backgroundColor: 'red' }} onClick={() => handleDelete(products[open].idProduk)}>
+                     Delete
+                  </Button>
+               </Box>
+            </Modal>
+         </div>
+         }
          </Container>
       </>
    )

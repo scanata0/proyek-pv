@@ -20,7 +20,7 @@ const api = {
    },
 
    saveTransactions: function(transactions) {
-      ipcRenderer.send('saveUsers', transactions)
+      ipcRenderer.send('saveTransactions', transactions)
    },
    
    loadTransactions: function() {

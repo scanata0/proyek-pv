@@ -9,6 +9,8 @@ import Signup from './components/Signup'
 import Profile from './components/Profile'
 import BuyNow from './components/BuyNow'
 import BuySuccess from './components/BuySuccess'
+import UpdateProduct from './components/UpdateProduct'
+import History from './components/History'
 import {Elektronik, Default, Fashion, Kecantikan, Kesehatan, MakananMinuman, RumahTangga} from './components/Categories'
 import {
    createBrowserRouter,
@@ -75,6 +77,14 @@ const router = createBrowserRouter([
          {
             path: '/buysuccess',
             element: <BuySuccess />
+         },
+         {
+            path: '/updateproduct',
+            element: <UpdateProduct />
+         },
+         {
+            path: '/history',
+            element: <History />
          }
       ]
    },

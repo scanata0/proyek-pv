@@ -52,14 +52,14 @@ function Signup() {
          return
       }
       const newUser = {
-         "id": state.users.length + 1,
-         "username": inpUsername,
-         "email": inpEmail,
-         "password": inpPass,
-         "nama": inpNama,
-         "saldo": 0,
-         "daftarPenjual": false,
-         "keranjang": []
+         id: state.users.length + 1,
+         username: inpUsername,
+         email: inpEmail,
+         password: inpPass,
+         nama: inpNama,
+         saldo: 0,
+         daftarPenjual: false,
+         keranjang: []
       }
       // addUser(newUser)
       const newUsers = [...state.users, newUser]
