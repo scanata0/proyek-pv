@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useReducer, useState } from 'react';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Container, Paper, Button, Box, Typography, TextField, Grid2, Card, Avatar, CardContent, Divider, Stack, CardMedia, FormControl, InputLabel, Select, MenuItem, InputAdornment, OutlinedInput } from '@mui/material';
+import { AuthContext } from '../context/Auth';
 
-import DataContext from '../context/DataContext';
+// import DataContext from '../context/Auth';
 
 export default function UpdateProduct() {
-   const context = useContext(DataContext)
-   const [products, setProducts] = useState(context.products)
+   const {arrProducts, productEdit, editProduct, addProduct, userActive} = useContext(AuthContext)
+   // const [products, setProducts] = useState(context.products)
    const [inpNama, setInpNama] = useState('')
    const [inpKategori, setInpKategori] = useState('')
    const [inpDesc, setInpDesc] = useState('')
@@ -14,26 +15,26 @@ export default function UpdateProduct() {
    const [inpHarga, setInpHarga] = useState(0)
    const [inpStok, setInpStok] = useState(1)
 
-   const location = useLocation()
-   const produk = location.state
+   // const location = useLocation()
+   // const produk = location.state
    const navigate = useNavigate()
 
    useEffect(() => {
-      if(produk) {
-         setInpNama(produk.nama)
-         setInpKategori(produk.kategori)
-         setInpDesc(produk.deskripsi)
-         setInpGbr(produk.gambar)
-         setInpHarga(produk.harga)
-         setInpStok(produk.stok)
+      if(productEdit) {
+         setInpNama(productEdit.nama)
+         setInpKategori(productEdit.kategori)
+         setInpDesc(productEdit.deskripsi)
+         setInpGbr(productEdit.gambar)
+         setInpHarga(productEdit.harga)
+         setInpStok(productEdit.stok)
       }
    }, [])
 
    function handleSubmit() {
-      if(produk) {
-         const newProduk = {
-            idProduk: produk.idProduk,
-            idPenjual: produk.idPenjual,
+      if(productEdit) {
+         const newProduct = {
+            idProduk: productEdit.idProduk,
+            idPenjual: productEdit.idPenjual,
             nama: inpNama,
             kategori: inpKategori,
             deskripsi: inpDesc,
@@ -42,20 +43,22 @@ export default function UpdateProduct() {
             stok: inpStok
          }
 
-         const newProducts = products.map((p) => {
-            if(produk.idProduk === p.idProduk) {
-               return newProduk
-            } else {
-               return p
-            }
-         })
-         setProducts(newProducts)
-         context.editProduct(newProduk)
-         window.api.saveProducts(newProducts)
+         editProduct(newProduct)
+
+         // const newProducts = arrProducts.map((p) => {
+         //    if(productEdit.idProduk === p.idProduk) {
+         //       return newProduct
+         //    } else {
+         //       return p
+         //    }
+         // })
+         // setProducts(newProducts)
+         // context.editProduct(newProduk)
+         // window.api.saveProducts(newProducts)
       } else {
-         const newProduk = {
-            idProduk: products.length + 1,
-            idPenjual: (context.userActive).id,
+         const newProduct = {
+            idProduk: arrProducts.length + 1,
+            idPenjual: userActive.id,
             nama: inpNama,
             kategori: inpKategori,
             deskripsi: inpDesc,
@@ -64,18 +67,21 @@ export default function UpdateProduct() {
             stok: inpStok
          }
 
-         const newProducts = [...products, newProduk]
-         setProducts(newProducts)
-         context.addProduct(newProduk)
-         window.api.saveProducts(newProducts)
+         addProduct(newProduct)
+
+         // const newProducts = [...arrProducts, newProduk]
+         // setProducts(newProducts)
+         // context.addProduct(newProduk)
+         // window.api.saveProducts(newProducts)
       }
+      // navigate('/profile')
       navigate('/profile')
    }
 
    return(
       <>
          <Container sx={{minHeight: '680px', marginTop: '100px'}}>
-            <Typography variant="h5">{produk ? 'Edit Produk' : 'Tambah Produk Baru'}</Typography>
+            <Typography variant="h5">{productEdit ? 'Edit Produk' : 'Tambah Produk Baru'}</Typography>
             
             <Box
                component="form"
@@ -164,7 +170,7 @@ export default function UpdateProduct() {
                }}
                onClick={handleSubmit}
                >
-               {produk ? 'Edit' : 'Tambah'}
+               {productEdit ? 'Edit' : 'Tambah'}
                </Button>
             </Box>
          </Container>

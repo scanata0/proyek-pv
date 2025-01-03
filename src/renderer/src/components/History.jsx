@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Container, Paper, Button, Box, Typography, TextField, Grid2, Card, Avatar, CardContent, Divider, Stack, CardMedia, CardActions, Modal, ListItem, List } from '@mui/material';
+import { AuthContext } from '../context/Auth';
 
-import DataContext from '../context/DataContext';
+// import DataContext from '../context/Auth';
 
 export default function History() {
-   const context = useContext(DataContext)
-   const user = context.userActive
+   const {arrProducts, arrTransactions, userActive} = useContext(AuthContext)
 
    return (
       <>
@@ -16,8 +16,8 @@ export default function History() {
                Riwayat Transaksi Anda
                </Typography>
                <Box>
-               {context.transactions.map((t, index) => {
-                  if(t.idPembeli === user.id) {
+               {arrTransactions.map((t, index) => {
+                  if(t.idPembeli === userActive.id) {
                      return (<Box key={index} sx={{marginBottom: 2}}>
                         <Card variant="outlined">
                         <CardContent>
@@ -29,7 +29,7 @@ export default function History() {
                            </Typography>
                            {t.produkDibeli.map((p, index) => (
                               <Typography variant="body2" component="div" sx={{paddingX: 3}}>
-                                 {context.products.map(a => {
+                                 {arrProducts.map(a => {
                                     if(a.idProduk === p.idProduk) {
                                        return <div>{a.nama} (x{p.jumlah})</div>
                                     }

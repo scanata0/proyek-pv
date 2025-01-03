@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Container, Paper, Button, Box, Typography, TextField, Grid2, Card, Avatar, CardContent, Divider, Stack, CardMedia, CardActions, Modal } from '@mui/material';
+import { AuthContext } from '../context/Auth';
 
-import DataContext from '../context/DataContext';
+// import DataContext from '../context/Auth';
 
 const styleModal = {
    position: 'absolute',
@@ -16,9 +17,9 @@ const styleModal = {
  };
 
 export default function Profile() {
-   const context = useContext(DataContext)
-   const [products, setProducts] = useState(context.products)
-   const user = context.userActive
+   const {arrProducts, userActive, deleteProduct, moveEditPage, logout} = useContext(AuthContext)
+   // const [products, setProducts] = useState(context.products)
+   // const user = context.userActive
 
    const [open, setOpen] = useState(-1);
       const handleOpen = (idx) => setOpen(idx);
@@ -26,20 +27,27 @@ export default function Profile() {
 
    const navigate = useNavigate()
 
-   function editProduct(produk) {
-      navigate('/updateproduct', {state: produk})
+   function handleLogout() {
+      logout()
+      navigate('/login')
+   }
+
+   function handleEdit(produk) {
+      moveEditPage(produk)
+      // return <Navigate to='/updateproduct' />
+      navigate('/updateproduct')
    }
 
    function handleDelete(idx) {
-      const newProducts = products.filter((p) => p.idProduk !== idx)
-      setProducts(newProducts)
-      window.api.saveProducts(newProducts)
+      deleteProduct(idx)
+      // const newProducts = products.filter((p) => p.idProduk !== idx)
+      // setProducts(newProducts)
+      // window.api.saveProducts(newProducts)
       handleClose()
    }
    
    return (
       <>
-      {console.log(products)}
          <Container sx={{minHeight: '700px'}}>
          {/* <h1>{user.nama}</h1> */}
          <Container maxWidth="lg" sx={{ paddingTop: 3 }}>
@@ -51,12 +59,12 @@ export default function Profile() {
                   alt="User Avatar"
                   sx={{ width: 120, height: 120, marginBottom: 2, mx: 'auto'}}
                />
-               <Typography variant="h6">{user.nama}</Typography>
-               <Typography color="textSecondary">{user.username}</Typography>
-               <Typography variant="h6" sx={{marginTop: '30px'}}>Saldo : Rp {(user.saldo).toLocaleString('ID-id')}</Typography>
-               <NavLink to='/login'><Button variant="contained" sx={{ marginTop: 2, backgroundColor: '#00b140' }}>
+               <Typography variant="h6">{userActive.nama}</Typography>
+               <Typography color="textSecondary">{userActive.username}</Typography>
+               <Typography variant="h6" sx={{marginTop: '30px'}}>Saldo : Rp {(userActive.saldo).toLocaleString('ID-id')}</Typography>
+               <Button variant="contained" sx={{ marginTop: 2, backgroundColor: '#00b140' }} onClick={handleLogout}>
                 Logout
-              </Button></NavLink>
+              </Button>
                </Box>
             </Card>
          </Grid2>
@@ -71,15 +79,15 @@ export default function Profile() {
                <Stack spacing={3}>
                   <Paper>
                   <Typography variant="body1">Nama User</Typography>
-                  <Typography color="textSecondary">{user.nama}</Typography>
+                  <Typography color="textSecondary">{userActive.nama}</Typography>
                   </Paper>
                   <Paper>
                   <Typography variant="body1">Username</Typography>
-                  <Typography color="textSecondary">{user.username}</Typography>
+                  <Typography color="textSecondary">{userActive.username}</Typography>
                   </Paper>
                   <Paper>
                   <Typography variant="body1">Email</Typography>
-                  <Typography color="textSecondary">{user.email}</Typography>
+                  <Typography color="textSecondary">{userActive.email}</Typography>
                   </Paper>
                      <NavLink to='/history'><Button variant="contained" sx={{ backgroundColor: '#00b140' }}>
                   Lihat Riwayat Transaksi
@@ -92,15 +100,15 @@ export default function Profile() {
          </Grid2>
 
          <Box>
-            {user.daftarPenjual ? (
+            {userActive.daftarPenjual ? (
                <Box sx={{marginTop: '50px'}}>
                   <Box sx={{display: 'flex', gap: '25px'}}>
                      <Typography variant='h5'>List Produk Anda</Typography>
                      <NavLink to='/updateproduct'><Button variant='contained' sx={{backgroundColor: '#00b140'}}>Tambah Produk Baru</Button></NavLink>
                   </Box>
                   <Grid2 container spacing={3} sx={{marginTop: '30px'}}>
-                  {products.map((p, index) => {
-                     if(p.idPenjual === user.id) {
+                  {arrProducts.map((p, index) => {
+                     if(p.idPenjual === userActive.id) {
                         return (
                            <Grid2 key={index} size={3}>
                            <Card sx={{ maxWidth: 375 }}>
@@ -122,7 +130,7 @@ export default function Profile() {
                               </Typography>
                               </CardContent>
                               <CardActions>
-                                 <Button variant='contained' sx={{backgroundColor: '#00b140'}} onClick={() => editProduct(p)}>Edit</Button>
+                                 <Button variant='contained' sx={{backgroundColor: '#00b140'}} onClick={() => handleEdit(p)}>Edit</Button>
                                  <Button variant='contained' sx={{backgroundColor: 'red'}} onClick={() => handleOpen(index)}>Delete</Button>
                                  </CardActions>
                            </Card>
@@ -150,9 +158,9 @@ export default function Profile() {
             >
                <Box sx={styleModal}>
                   <Typography id="modal-modal-title" variant="h6" component="h2">
-                     Anda yakin ingin menghapus produk {products[open].nama}?
+                     Anda yakin ingin menghapus produk {arrProducts[open].nama}?
                   </Typography>
-                  <Button variant='contained' id='modal-modal-description' sx={{ mt: 2, backgroundColor: 'red' }} onClick={() => handleDelete(products[open].idProduk)}>
+                  <Button variant='contained' id='modal-modal-description' sx={{ mt: 2, backgroundColor: 'red' }} onClick={() => handleDelete(arrProducts[open].idProduk)}>
                      Delete
                   </Button>
                </Box>

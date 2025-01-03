@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Container, Paper, Button, Grid2, Card, CardMedia, CardContent, Typography, CardActions, Modal, Box } from '@mui/material';
+import { AuthContext } from '../context/Auth';
 
-import DataContext from '../context/DataContext';
+// import DataContext from '../context/Auth';
 
 const styleModal = {
    position: 'absolute',
@@ -17,8 +18,8 @@ const styleModal = {
  };
 
 export function RumahTangga() {
-   const context = useContext(DataContext)
-   const filteredProducts = (context.products).filter((p) => p.kategori === 'Rumah Tangga')
+   const {arrProducts} = useContext(AuthContext)
+   const filteredProducts = arrProducts.filter((p) => p.kategori === 'Rumah Tangga')
 
   return (
     <>
@@ -56,8 +57,8 @@ export function RumahTangga() {
 }
 
 export function Elektronik() {
-   const context = useContext(DataContext)
-   const filteredProducts = (context.products).filter((p) => p.kategori === 'Elektronik')
+   const {arrProducts} = useContext(AuthContext)
+   const filteredProducts = arrProducts.filter((p) => p.kategori === 'Elektronik')
 
   return (
     <>
@@ -95,8 +96,8 @@ export function Elektronik() {
 }
 
 export function Fashion() {
-   const context = useContext(DataContext)
-   const filteredProducts = (context.products).filter((p) => p.kategori === 'Fashion')
+   const {arrProducts} = useContext(AuthContext)
+   const filteredProducts = arrProducts.filter((p) => p.kategori === 'Fashion')
 
   return (
     <>
@@ -134,8 +135,8 @@ export function Fashion() {
 }
 
 export function Kecantikan() {
-   const context = useContext(DataContext)
-   const filteredProducts = (context.products).filter((p) => p.kategori === 'Kecantikan')
+   const {arrProducts} = useContext(AuthContext)
+   const filteredProducts = arrProducts.filter((p) => p.kategori === 'Kecantikan')
 
    return (
      <>
@@ -173,8 +174,8 @@ export function Kecantikan() {
  }
 
  export function Kesehatan() {
-   const context = useContext(DataContext)
-   const filteredProducts = (context.products).filter((p) => p.kategori === 'Kesehatan')
+   const {arrProducts} = useContext(AuthContext)
+   const filteredProducts = arrProducts.filter((p) => p.kategori === 'Kesehatan')
 
    return (
      <>
@@ -212,8 +213,8 @@ export function Kecantikan() {
  }
 
  export function MakananMinuman() {
-   const context = useContext(DataContext)
-   const filteredProducts = (context.products).filter((p) => p.kategori === 'Makanan & Minuman')
+   const {arrProducts} = useContext(AuthContext)
+   const filteredProducts = arrProducts.filter((p) => p.kategori === 'Makanan & Minuman')
 
    return (
      <>
@@ -251,7 +252,7 @@ export function Kecantikan() {
  }
 
 export function Default() {
-   const context = useContext(DataContext)
+   const {arrProducts, userActive, moveBuyNowPage} = useContext(AuthContext)
    const navigate = useNavigate()
 
    const [open, setOpen] = React.useState(false);
@@ -259,8 +260,11 @@ export function Default() {
   const handleClose = () => setOpen(false);
 
    function beliSekarang(produk) {
-      if(context.userActive) {
-         navigate("/buynow", {state: produk})
+      if(userActive) {
+         // navigate("/buynow", {state: produk})
+         moveBuyNowPage(produk)
+         // return <Navigate to='/buynow' />
+         navigate('/buynow')
       } else {
          handleOpen()
       }
@@ -270,7 +274,7 @@ export function Default() {
      <>
        <Container sx={{minHeight: '370px'}}>
          <Grid2 container spacing={3} sx={{marginTop: '30px'}}>
-            {context.products.map((p, index) => (
+            {arrProducts.map((p, index) => (
                <Grid2 key={index} size={3}>
                   <Card sx={{ maxWidth: 375 }}>
                      <CardMedia

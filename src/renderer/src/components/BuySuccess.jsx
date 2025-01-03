@@ -1,14 +1,17 @@
 import React, { useContext, useState } from 'react';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Container, Paper, Button, Box, Typography, TextField, Grid2, Card, Avatar, CardContent, Divider, Stack, CardMedia, Modal } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { AuthContext } from '../context/Auth';
 
-import DataContext from '../context/DataContext';
+// import DataContext from '../context/Auth';
 
 export default function BuySuccess() {
-   const location = useLocation()
-   const arrBeli = location.state
+   // const location = useLocation()
+   // const arrBeli = location.state
+
+   const {transActive} = useContext(AuthContext)
 
    return(
       <>
@@ -44,16 +47,16 @@ export default function BuySuccess() {
                      <strong>Total Harga</strong>
                   </Typography>
                </Box>
-               {arrBeli.map((a, index) => (
+               {transActive.map((t, index) => (
                   <Box key={index} display="flex" sx={{justifyContent: 'space-between', marginTop: '15px'}}>
                      <Typography variant="body2">
-                        {a.produk.nama}
+                        {t.produk.nama}
                      </Typography>
                      <Typography variant="body2">
-                        {a.jumlah}
+                        {t.jumlah}
                      </Typography>
                      <Typography variant="body2">
-                        Rp {((a.produk.harga)* a.jumlah).toLocaleString('ID-id')}
+                        Rp {((t.produk.harga)* t.jumlah).toLocaleString('ID-id')}
                      </Typography>
                   </Box>
                ))}

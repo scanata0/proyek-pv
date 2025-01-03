@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button, Box, TextField, IconButton, Avatar } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
+import { AuthContext } from '../context/Auth';
 
-import DataContext from '../context/DataContext';
+// import DataContext from '../context/Auth';
 
 export default function Navbar() {
    const [anchorEl, setAnchorEl] = React.useState(null);
@@ -17,7 +18,8 @@ export default function Navbar() {
       setAnchorEl(null);
    };
 
-   const context = useContext(DataContext)
+   const {userActive} = useContext(AuthContext)
+   const navigate = useNavigate()
 
    return(
       <AppBar position="fixed" sx={{ backgroundColor: '#00b140' }}>
@@ -70,12 +72,14 @@ export default function Navbar() {
             <SearchIcon />
           </IconButton>
         </Box>
-        {context.userActive ? (
+        {userActive ? (
          <NavLink to="/profile"><Avatar /></NavLink>
         ) : (
          <Box sx={{ display: 'flex', gap: 2, flexGrow: 1, justifyContent: 'end' }}>
-          <NavLink to="/signup" style={{color: 'white'}}><Button color="inherit">Sign Up</Button></NavLink>
-          <NavLink to="/login" style={{color: 'white'}}><Button color="inherit">Log In</Button></NavLink>
+          {/* <NavLink to="/signup" style={{color: 'white'}}><Button color="inherit">Sign Up</Button></NavLink>
+          <NavLink to="/login" style={{color: 'white'}}><Button color="inherit">Log In</Button></NavLink> */}
+          <Button color="inherit" onClick={() => navigate('/signup')}>Sign Up</Button>
+          <Button color="inherit" onClick={() => navigate('/login')}>Log In</Button>
         </Box>
         )}
       </Toolbar>

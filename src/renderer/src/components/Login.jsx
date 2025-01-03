@@ -1,60 +1,72 @@
 import React, { useState, useContext, useReducer, useEffect } from 'react';
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Container, Paper, Button, Box, Typography, TextField } from '@mui/material';
 
-import DataContext from '../context/DataContext';
-import dataReducer from '../context/dataReducer';
-import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS, SET_USERACTIVE } from '../context/types';
+// import DataContext, { AuthContext } from '../context/Auth';
+// import dataReducer from '../context/dataReducer';
+// import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS, SET_USERACTIVE } from '../context/types';
+import { AuthContext } from '../context/Auth';
 
 function Login() {
    const [inpEmail, setInpEmail] = useState('')
    const [inpPass, setInpPass] = useState('')
-   const [errorMsg, setErrorMsg] = useState('')
+   const {userActive, login, loginErr} = useContext(AuthContext)
    const navigate = useNavigate()
 
-   const initialData = {
-         products: [],
-         users: [],
-         transactions: []
-      }
+   function handleLogin() {
+      login(inpEmail, inpPass)
+      navigate('/home')
+   }
+
+   // if(userActive) {
+   //    return <Navigate to='/home'/>
+   // }
+
+   // const navigate = useNavigate()
+
+   // const initialData = {
+   //       products: [],
+   //       users: [],
+   //       transactions: []
+   //    }
    
-      const [state, dispatch] = useReducer(dataReducer, initialData)
+   //    const [state, dispatch] = useReducer(dataReducer, initialData)
    
-      useEffect(() => {
-         window.api.loadProducts().then((data) => {
-            dispatch({
-               type: SET_PRODUCTS,
-               payload: data
-            })
-         })
-         window.api.loadUsers().then((data) => {
-            dispatch({
-               type: SET_USERS,
-               payload: data
-            })
-         })
-         window.api.loadTransactions().then((data) => {
-            dispatch({
-               type: SET_TRANSACTIONS,
-               payload: data
-            })
-         })
-      }, [dispatch])
+   //    useEffect(() => {
+   //       window.api.loadProducts().then((data) => {
+   //          dispatch({
+   //             type: SET_PRODUCTS,
+   //             payload: data
+   //          })
+   //       })
+   //       window.api.loadUsers().then((data) => {
+   //          dispatch({
+   //             type: SET_USERS,
+   //             payload: data
+   //          })
+   //       })
+   //       window.api.loadTransactions().then((data) => {
+   //          dispatch({
+   //             type: SET_TRANSACTIONS,
+   //             payload: data
+   //          })
+   //       })
+   //    }, [dispatch])
    
 
-   function handleSubmit(e) {
-      e.preventDefault();
-      setErrorMsg('')
-      for (let i = 0; i < (state.users).length; i++) {
+   // function handleSubmit() {
+   //    // e.preventDefault();
+   //    setErrorMsg('')
+   //    for (let i = 0; i < (state.users).length; i++) {
          
-         if(inpEmail === (state.users)[i].email && inpPass === (state.users)[i].password) {
-            navigate("/home", {state: (state.users)[i]})
-            return
-         }
-      }
-      setErrorMsg('Username / Password Salah')
-      return
-   }
+   //       if(inpEmail === (state.users)[i].email && inpPass === (state.users)[i].password) {
+   //          navigate("/home", {state: (state.users)[i]})
+   //          return
+   //       }
+   //    }
+   //    setErrorMsg('Username / Password Salah')
+   //    return
+   // }
 
   return (
     <>
@@ -74,7 +86,6 @@ function Login() {
 
         <Box
           component="form"
-          onSubmit={handleSubmit}
           sx={{
             mt: 1,
             width: '100%',
@@ -101,12 +112,11 @@ function Login() {
             value={inpPass}
             onChange={(e) => setInpPass(e.target.value)}
           />
-          {errorMsg !== '' && (
-            <Typography variant="h5" sx={{color: 'red', textAlign: 'center'}}>{errorMsg}</Typography>
+          {loginErr !== '' && (
+            <Typography variant="h5" sx={{color: 'red', textAlign: 'center'}}>{loginErr}</Typography>
           )}
           
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             sx={{
@@ -115,6 +125,7 @@ function Login() {
               mt: 2,
               padding: '10px',
             }}
+            onClick={handleLogin}
           >
             Login
           </Button>

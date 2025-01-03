@@ -17,6 +17,7 @@ import {
    Navigate,
    RouterProvider,
  } from "react-router-dom";
+import Auth from './context/Auth'
 
 const router = createBrowserRouter([
    {
@@ -99,8 +100,9 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    {/* <App /> */}
-    <RouterProvider router={router}></RouterProvider>
-  </React.StrictMode>
+   <React.StrictMode>
+      <Auth>
+         <RouterProvider router={router}></RouterProvider>
+      </Auth>
+   </React.StrictMode>
 )

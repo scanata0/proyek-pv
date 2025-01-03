@@ -1,10 +1,11 @@
-import React, { useState, useReducer, useEffect } from 'react';
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import React, { useState, useReducer, useEffect, useContext } from 'react';
+import { Link, Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Container, Paper, Button, Box, Typography, TextField } from '@mui/material';
 
-import DataContext from '../context/DataContext';
-import dataReducer from '../context/dataReducer';
-import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS, ADD_USER } from '../context/types';
+// import DataContext, { AuthContext } from '../context/Auth';
+// import dataReducer from '../context/dataReducer';
+// import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS, ADD_USER } from '../context/types';
+import { AuthContext } from '../context/Auth';
 
 function Signup() {
    const [inpNama, setInpNama] = useState('')
@@ -12,60 +13,66 @@ function Signup() {
    const [inpUsername, setInpUsername] = useState('')
    const [inpPass, setInpPass] = useState('')
    const [inpConfirm, setInpConfirm] = useState('')
-   const [errConfirm, setErrConfirm] = useState('')
+   // const [errConfirm, setErrConfirm] = useState('')
+   const {signup, signupErr} = useContext(AuthContext)
    const navigate = useNavigate()
 
-   const initialData = {
-      products: [],
-      users: [],
-      transactions: []
-   }
-
-   const [state, dispatch] = useReducer(dataReducer, initialData)
-
-   useEffect(() => {
-      window.api.loadProducts().then((data) => {
-         dispatch({
-            type: SET_PRODUCTS,
-            payload: data
-         })
-      })
-      window.api.loadUsers().then((data) => {
-         dispatch({
-            type: SET_USERS,
-            payload: data
-         })
-      })
-      window.api.loadTransactions().then((data) => {
-         dispatch({
-            type: SET_TRANSACTIONS,
-            payload: data
-         })
-      })
-      
-   }, [dispatch])
-
-   function handleSubmit(e) {
-      e.preventDefault()
-      if(inpPass !== inpConfirm) {
-         setErrConfirm('Input password tidak sama dengan konfirmasi password')
-         return
-      }
-      const newUser = {
-         id: state.users.length + 1,
-         username: inpUsername,
-         email: inpEmail,
-         password: inpPass,
-         nama: inpNama,
-         saldo: 0,
-         daftarPenjual: false,
-         keranjang: []
-      }
-      // addUser(newUser)
-      const newUsers = [...state.users, newUser]
-      window.api.saveUsers(newUsers)
+   function handleSignup() {
+      signup(inpNama, inpEmail, inpUsername, inpPass, inpConfirm)
       navigate('/login')
    }
+
+   // const initialData = {
+   //    products: [],
+   //    users: [],
+   //    transactions: []
+   // }
+
+   // const [state, dispatch] = useReducer(dataReducer, initialData)
+
+   // useEffect(() => {
+   //    window.api.loadProducts().then((data) => {
+   //       dispatch({
+   //          type: SET_PRODUCTS,
+   //          payload: data
+   //       })
+   //    })
+   //    window.api.loadUsers().then((data) => {
+   //       dispatch({
+   //          type: SET_USERS,
+   //          payload: data
+   //       })
+   //    })
+   //    window.api.loadTransactions().then((data) => {
+   //       dispatch({
+   //          type: SET_TRANSACTIONS,
+   //          payload: data
+   //       })
+   //    })
+      
+   // }, [dispatch])
+
+   // function handleSubmit(e) {
+   //    e.preventDefault()
+   //    if(inpPass !== inpConfirm) {
+   //       setErrConfirm('Input password tidak sama dengan konfirmasi password')
+   //       return
+   //    }
+   //    const newUser = {
+   //       id: state.users.length + 1,
+   //       username: inpUsername,
+   //       email: inpEmail,
+   //       password: inpPass,
+   //       nama: inpNama,
+   //       saldo: 0,
+   //       daftarPenjual: false,
+   //       keranjang: []
+   //    }
+   //    // addUser(newUser)
+   //    const newUsers = [...state.users, newUser]
+   //    window.api.saveUsers(newUsers)
+   //    navigate('/login')
+   // }
 
    // function addUser(user) {
    //    dispatch({
@@ -93,7 +100,6 @@ function Signup() {
 
         <Box
           component="form"
-          onSubmit={handleSubmit}
           sx={{
             mt: 1,
             width: '100%',
@@ -147,12 +153,11 @@ function Signup() {
             value={inpConfirm}
             onChange={(e) => setInpConfirm(e.target.value)}
           />
-          {errConfirm !== '' && (
-            <Typography variant="h5" sx={{color: 'red', textAlign: 'center'}}>{errConfirm}</Typography>
+          {signupErr !== '' && (
+            <Typography variant="h5" sx={{color: 'red', textAlign: 'center'}}>{signupErr}</Typography>
          )}
 
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             sx={{
@@ -161,6 +166,7 @@ function Signup() {
               mt: 2,
               padding: '10px',
             }}
+            onClick={handleSignup}
           >
             Signup
           </Button>
