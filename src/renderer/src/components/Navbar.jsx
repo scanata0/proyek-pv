@@ -76,10 +76,8 @@ export default function Navbar() {
          <NavLink to="/profile"><Avatar /></NavLink>
         ) : (
          <Box sx={{ display: 'flex', gap: 2, flexGrow: 1, justifyContent: 'end' }}>
-          {/* <NavLink to="/signup" style={{color: 'white'}}><Button color="inherit">Sign Up</Button></NavLink>
-          <NavLink to="/login" style={{color: 'white'}}><Button color="inherit">Log In</Button></NavLink> */}
-          <Button color="inherit" onClick={() => navigate('/signup')}>Sign Up</Button>
-          <Button color="inherit" onClick={() => navigate('/login')}>Log In</Button>
+          <NavLink to="/signup" style={{color: 'white'}}><Button color="inherit">Sign Up</Button></NavLink>
+          <NavLink to="/login" style={{color: 'white'}}><Button color="inherit">Log In</Button></NavLink>
         </Box>
         )}
       </Toolbar>

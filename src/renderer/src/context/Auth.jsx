@@ -25,7 +25,7 @@ export default function Auth({children}) {
       window.api.loadTransactions().then((data) => {
          setArrTransactions(data)
       })
-   })
+   }, [])
 
    function login(email, password) {
       setLoginErr('')
