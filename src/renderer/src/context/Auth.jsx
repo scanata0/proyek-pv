@@ -32,11 +32,11 @@ export default function Auth({children}) {
       for (let i = 0; i < arrUsers.length; i++) {
          if(email === arrUsers[i].email && password === arrUsers[i].password) {
             setUserActive(arrUsers[i])
-            // return <Navigate to='/home' />
-            return
+            return true
          }
       }
       setLoginErr('Username / Password Salah')
+      return false
    }
 
    function logout() {
@@ -99,9 +99,13 @@ export default function Auth({children}) {
    function buyProducts(productsDibeli) {
       let total = 0
       let arrBeli = []
+      let newProducts = arrProducts.slice()
       for (let i = 0; i < productsDibeli.length; i++) {
          total += ((productsDibeli[i].produk).harga * productsDibeli[i].jumlah)
          arrBeli.push({idProduk: (productsDibeli[i].produk).idProduk, jumlah: productsDibeli[i].jumlah})
+         newProducts = newProducts.map((p) => p.idProduk == (productsDibeli[i].produk).idProduk ? ({...p, stok: p.stok-1}) : p)
+         console.log(newProducts);
+         
       }
       const sisaSaldo = userActive.saldo - total
       userActive.saldo = sisaSaldo
@@ -120,13 +124,22 @@ export default function Auth({children}) {
       }
       const newTransactions = [...arrTransactions, newTransaction]
       setArrUsers(newUsers)
+      setArrProducts(newProducts)
       setArrTransactions(newTransactions)
       setTransActive(productsDibeli)
       window.api.saveUsers(newUsers)
+      window.api.saveProducts(newProducts)
       window.api.saveTransactions(newTransactions)
    }
 
-   const auth = {arrUsers, arrProducts, arrTransactions, userActive, login, logout, signup, loginErr, signupErr, addProduct, editProduct, deleteProduct, productEdit, moveEditPage, moveBuyNowPage, productClicked, buyProducts, transActive}
+   function userDaftarPenjual() {
+      userActive.daftarPenjual = true
+      const newUsers = arrUsers.map((u) => u.id == userActive.id ? userActive : u)
+      setArrUsers(newUsers)
+      window.api.saveUsers(newUsers)
+   }
+
+   const auth = {arrUsers, arrProducts, arrTransactions, userActive, login, logout, signup, loginErr, signupErr, addProduct, editProduct, deleteProduct, productEdit, moveEditPage, moveBuyNowPage, productClicked, buyProducts, transActive, userDaftarPenjual}
    return <AuthContext.Provider value={auth}>
       {children}
    </AuthContext.Provider>
