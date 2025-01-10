@@ -68,8 +68,8 @@ export default function BuyNow() {
    // window.api.saveUsers(newUsers)
    // window.api.saveTransactions(newTransactions)
    // navigate('/buysuccess', {state: arrBeli})
-   // return <Navigate to='/buysuccess' />
    handleClose()
+   // return <Navigate to='/buysuccess' />
    navigate('/buysuccess')
   }
 
@@ -136,7 +136,7 @@ export default function BuyNow() {
                   <Divider sx={{ marginY: 2 }} />
 
                   <Button variant="contained" fullWidth sx={{ padding: 1.5, backgroundColor: '#00b140' }} onClick={handleOpen}>
-                     Beli Sekarang
+                     Checkout
                   </Button>
                   </CardContent>
                </Card>

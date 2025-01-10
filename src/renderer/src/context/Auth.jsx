@@ -104,8 +104,6 @@ export default function Auth({children}) {
          total += ((productsDibeli[i].produk).harga * productsDibeli[i].jumlah)
          arrBeli.push({idProduk: (productsDibeli[i].produk).idProduk, jumlah: productsDibeli[i].jumlah})
          newProducts = newProducts.map((p) => p.idProduk == (productsDibeli[i].produk).idProduk ? ({...p, stok: p.stok-1}) : p)
-         console.log(newProducts);
-         
       }
       const sisaSaldo = userActive.saldo - total
       userActive.saldo = sisaSaldo
