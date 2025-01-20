@@ -10,9 +10,17 @@ import { AuthContext } from './context/Auth';
 // import { ADD_PRODUCT, SET_PRODUCTS, SET_USERS, SET_TRANSACTIONS, SET_USERACTIVE, EDIT_PRODUCT } from './context/types';
 import { Container } from '@mui/material';
 
-function App() {
+const App = () => {
+   
+// }
+// function App() {
    const {userActive} = useContext(AuthContext)
-
+   const [searchQuery, setSearchQuery] = useState("tas");
+   const handleSearch = (query) => {
+      setSearchQuery(query);
+    };
+    console.log("Search Query:", searchQuery);
+   //  console.log("Search Query:", searchQuery);
    // if(!userActive) {
    //    return <Navigate to='/login' />
    // }
@@ -100,9 +108,13 @@ function App() {
    //       editProduct
    //    }}>
       <>
-         <Navbar />
+      
+         <Navbar onSearch={handleSearch} />
+         
          <div style={{marginTop: '80px'}}>
-            <Outlet></Outlet>
+            {/* <Outlet searchQuery={{searchQuery}}></Outlet> */}
+            {/* passing dari App.jsx ke Home.jsx */}
+            <Outlet context={{ searchQuery }} />
          </div>
          <Footer />
       </>

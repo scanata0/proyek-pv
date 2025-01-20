@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState} from 'react';
 import { Link, Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button, Box, TextField, IconButton, Avatar } from '@mui/material';
 import Menu from '@mui/material/Menu';
@@ -8,8 +8,16 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { AuthContext } from '../context/Auth';
 
 // import DataContext from '../context/Auth';
-
-export default function Navbar() {
+const Navbar = ({ onSearch }) => {
+const [inputValue, setInputValue] = useState("");
+const handleInputChange = (event) => {
+   const query = event.target.value;
+   setInputValue(query);
+   if (onSearch) {
+       onSearch(query);
+   }
+ };
+// export default function Navbar() {
    const [anchorEl, setAnchorEl] = React.useState(null);
    const open = Boolean(anchorEl);
    const handleClick = (event) => {
@@ -66,8 +74,10 @@ export default function Navbar() {
           <TextField
             variant="outlined"
             size="small"
+            value={inputValue}
+            onChange={handleInputChange}
             placeholder="Search products, brands, or categories"
-            sx={{ backgroundColor: 'white', borderRadius: 1, width: '700px' }}
+            sx={{ backgroundColor: 'white', borderRadius: 1, width: '700px' }} 
           />
           <IconButton color="inherit" sx={{ marginLeft: 1 }}>
             <SearchIcon />
@@ -92,3 +102,4 @@ export default function Navbar() {
     </AppBar>
    )
 }
+export default Navbar;

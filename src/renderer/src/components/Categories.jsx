@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Container, Paper, Button, Grid2, Card, CardMedia, CardContent, Typography, CardActions, Modal, Box } from '@mui/material';
 import { AuthContext } from '../context/Auth';
+import { useOutletContext } from 'react-router-dom';
 
 // import DataContext from '../context/Auth';
 
@@ -251,14 +252,21 @@ export function Kecantikan() {
    )
  }
 
-export function Default() {
+ export const Default = () => {
+// export function Default() {
+   const { searchQuery } = useOutletContext();
    const {arrProducts, userActive, moveBuyNowPage} = useContext(AuthContext)
    const navigate = useNavigate()
-
+   const filteredData = (searchQuery
+    ? arrProducts.filter((item) =>
+        item.nama.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : arrProducts);
+   console.log("Filtered Data1:", filteredData);
    const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  console.log("Search Query:", searchQuery);
    function beliSekarang(produk) {
       if(userActive) {
          // navigate("/buynow", {state: produk})
@@ -274,7 +282,8 @@ export function Default() {
      <>
        <Container sx={{minHeight: '370px'}}>
          <Grid2 container spacing={3} sx={{marginTop: '30px'}}>
-            {arrProducts.map((p, index) => (
+         {/* {arrProducts.map((p, index) => ( */}
+         {filteredData.map((p, index) => (
                <Grid2 key={index} size={3}>
                   <Card sx={{ maxWidth: 375 }}>
                      <CardMedia
@@ -322,3 +331,6 @@ export function Default() {
      </>
    )
  }
+
+//  export Default;
+//  export default Default;
